@@ -35,8 +35,9 @@ const Login: FC<Props> = ({ users, setUser }) => {
         return item;
       }
     });
+    localStorage.setItem("user", JSON.stringify(foundUser));
 
-    if (!foundUser) return alert("Invalid email or password");
+    if (!foundUser) return alert("Invalid name or password");
     setUser(foundUser);
   };
 

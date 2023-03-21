@@ -30,4 +30,19 @@ const updateDataInLocalStorage = (data: [user]) => {
   window.localStorage.setItem(DataKey, JSON.stringify(data));
 };
 
-export { saveDataToLocalStorage, getDataFromStorage, updateDataInLocalStorage };
+const getUserFromStorage = () => {
+  const user = localStorage.getItem("user");
+  if (user) return JSON.parse(user);
+  return undefined;
+};
+const removeUserFromStorage = () => {
+  localStorage.removeItem("user");
+};
+
+export {
+  saveDataToLocalStorage,
+  getDataFromStorage,
+  updateDataInLocalStorage,
+  getUserFromStorage,
+  removeUserFromStorage,
+};

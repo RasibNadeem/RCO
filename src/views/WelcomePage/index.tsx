@@ -1,7 +1,11 @@
 import { FC, useState, useEffect } from "react";
 import { Button } from "reactstrap";
 
-import { getDataFromStorage } from "../../utils";
+import {
+  getDataFromStorage,
+  getUserFromStorage,
+  removeUserFromStorage,
+} from "../../utils";
 import Login from "./Login";
 import UserData from "./UserData";
 
@@ -18,13 +22,21 @@ const WelcomePage: FC = () => {
 
   useEffect(() => {
     setUsers(getDataFromStorage());
+    setUser(getUserFromStorage());
   }, []);
 
   return (
     <>
       {!!user && (
         <div className="text-end m-3">
-          <Button onClick={() => setUser(undefined)} color="primary">
+          <div className="mb-1">Hi {user.name}</div>
+          <Button
+            onClick={() => {
+              setUser(undefined);
+              removeUserFromStorage();
+            }}
+            color="primary"
+          >
             Logout{" "}
           </Button>
         </div>
