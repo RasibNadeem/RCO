@@ -5,44 +5,25 @@ interface user {
   adminRights: string;
 }
 
-const DataKey = "ra-data-localforage";
+interface post {
+  id: number;
+  name: string;
+  description: string;
+}
 
-const getDataFromStorage: () => [user] = () => {
-  const users: string | null = window.localStorage.getItem(DataKey);
-  if (users) return JSON.parse(users);
-  return [];
+const users: user[] = [
+  { id: 1, name: "ian", password: "admin", adminRights: "true" },
+  { id: 2, name: "jason", password: "user", adminRights: "false" },
+];
+
+const posts: post[] = [
+  { id: 1, name: "Post 1", description: "This is post one" },
+  { id: 2, name: "Post 2", description: "This is post two" },
+];
+
+const saveDataToLocalStorage = () => {
+  localStorage.setItem("posts", JSON.stringify(posts));
+  localStorage.setItem("users", JSON.stringify(users));
 };
 
-const saveDataToLocalStorage: () => void = () => {
-  const existingUsers = getDataFromStorage();
-  if (!existingUsers.length) {
-    const users: user[] = [
-      { id: 1, name: "ian", password: "admin", adminRights: "true" },
-      { id: 2, name: "jason", password: "user", adminRights: "false" },
-    ];
-
-    window.localStorage.setItem(DataKey, JSON.stringify(users));
-  }
-};
-
-const updateDataInLocalStorage = (data: [user]) => {
-  localStorage.removeItem(DataKey);
-  window.localStorage.setItem(DataKey, JSON.stringify(data));
-};
-
-const getUserFromStorage = () => {
-  const user = localStorage.getItem("user");
-  if (user) return JSON.parse(user);
-  return undefined;
-};
-const removeUserFromStorage = () => {
-  localStorage.removeItem("user");
-};
-
-export {
-  saveDataToLocalStorage,
-  getDataFromStorage,
-  updateDataInLocalStorage,
-  getUserFromStorage,
-  removeUserFromStorage,
-};
+export { users, posts, saveDataToLocalStorage };
